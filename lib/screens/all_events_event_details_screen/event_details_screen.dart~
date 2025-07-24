@@ -1,0 +1,374 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:trackdays_planner/constants/app_image_path.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/action_row_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/circuit_info_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/custome_checkbox_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/event_faq_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/info_tab_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/stat_widget.dart';
+import 'package:trackdays_planner/screens/event_details_screen/widgets/tab_contant_widget.dart';
+
+import '../../constants/app_colors.dart';
+import '../../constants/app_icon_path.dart';
+import '../../routes/app_routes.dart';
+import '../../utils/app_size.dart';
+import '../../widgets/appbar_widget/appbar_widget.dart';
+import '../../widgets/icon_widget/icon_widget.dart';
+import '../../widgets/image_widget/image_widget.dart';
+import '../../widgets/space_widget/space_widget.dart';
+import '../../widgets/text_widget/text_widgets.dart';
+import 'controller/event_details_screen_controller.dart';
+
+class EventDetailsScreen extends StatefulWidget {
+  const EventDetailsScreen({super.key});
+
+  @override
+  State<EventDetailsScreen> createState() => _EventDetailsScreenState();
+}
+
+class _EventDetailsScreenState extends State<EventDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  String? _selectedGroup;
+  bool _pitboxChecked = false;
+  bool _sharedPitboxChecked = false;
+  final List<String> _groups = ['Group 1', 'Group 2', 'Group 3'];
+
+  // Tabs
+  late TabController _tabController;
+  final List<String> _tabs = ['Information', 'Circuit', 'FAQ'];
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
+      appBar: AppbarWidget(
+        centerTitle: true,
+        action: IconButton(
+          tooltip: "Cart",
+          onPressed: () {
+            Get.toNamed(AppRoutes.cartScreen);
+          },
+          icon: const Badge(
+            isLabelVisible: true,
+            label: Text('2'),
+            backgroundColor: AppColors.mainBrandColor,
+            child: IconWidget(
+              icon: AppIconPath.cartIcon,
+              width: 24,
+              height: 24,
+            ),
+          ),
+        ),
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: ImageWidget(
+                          imagePath: AppImagePath.upcomingImage,
+                          height: ResponsiveUtils.height(350),
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Positioned(
+                        top: 8,
+                        left: 8,
+                        child: Container(
+                          width: ResponsiveUtils.width(72),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(6),
+                            border:
+                                Border.all(color: AppColors.secondBrandColor),
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 6),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppColors.mainBrandColor,
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(6)),
+                                  border: Border.all(
+                                      color: AppColors.secondBrandColor),
+                                ),
+                                child: const TextWidget(
+                                  text: "APR",
+                                  fontColor: AppColors.white,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Column(
+                                  children: [
+                                    const TextWidget(
+                                      text: "25",
+                                      fontColor: AppColors.contentPrimaryLight,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 22,
+                                    ),
+                                    TextWidget(
+                                      text: "MON",
+                                      fontColor: AppColors.contentPrimaryLight
+                                          .withOpacity(0.5),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: ImageWidget(
+                      imagePath: AppImagePath.brandImage2,
+                      height: ResponsiveUtils.height(17),
+                      width: ResponsiveUtils.width(120),
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  const SizedBox(
+                    width: double.infinity,
+                    child: TextWidget(
+                      text: "FR-Performance (Autodrom Most)",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
+                      fontColor: AppColors.contentPrimaryLight,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                      textAlignment: TextAlign.start,
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 12),
+                  Row(
+                    children: [
+                      const IconWidget(
+                        icon: AppIconPath.newRecordIcon,
+                        width: 24,
+                        height: 24,
+                      ),
+                      const SpaceWidget(spaceWidth: 12),
+                      SizedBox(
+                        width: ResponsiveUtils.width(300),
+                        child: TextWidget(
+                          text: "Most, 435 13 Czech Republic",
+                          fontColor:
+                              AppColors.contentPrimaryLight.withOpacity(0.7),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          textAlignment: TextAlign.start,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SpaceWidget(spaceHeight: 12),
+                  const Row(
+                    children: [
+                      StatWidget(
+                        icon: Icons.device_thermostat_outlined,
+                        text: "23°",
+                      ),
+                      SpaceWidget(spaceWidth: 16),
+                      StatWidget(
+                        icon: Icons.loop,
+                        text: "14 T",
+                      ),
+                      SpaceWidget(spaceWidth: 16),
+                      StatWidget(
+                        icon: Icons.access_time,
+                        text: "16:00 - 18:30",
+                      ),
+                    ],
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  Container(
+                    height: 52,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(color: Colors.grey.shade300),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        const IconWidget(
+                          icon: AppIconPath.groupIcon,
+                          width: 18,
+                          height: 18,
+                        ),
+                        const SpaceWidget(spaceWidth: 8),
+                        Expanded(
+                          child: DropdownButton<String>(
+                            hint: const Text('Choose Your Group'),
+                            value: _selectedGroup,
+                            isExpanded: true,
+                            underline: const SizedBox(),
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            menuWidth: 320,
+                            dropdownColor: AppColors.white,
+                            items: _groups.map((String group) {
+                              return DropdownMenuItem<String>(
+                                value: group,
+                                child: Text(group),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedGroup = newValue;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 12),
+                  // Checkboxes
+                  Row(
+                    children: [
+                      CustomCheckboxWidget(
+                        value: _pitboxChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _pitboxChecked = value ?? false;
+                          });
+                        },
+                        text: "Pitbox",
+                      ),
+                      const SpaceWidget(spaceWidth: 12),
+                      CustomCheckboxWidget(
+                        value: _sharedPitboxChecked,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _sharedPitboxChecked = value ?? false;
+                          });
+                        },
+                        text: "Shared Pitbox",
+                      ),
+                    ],
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  const TextWidget(
+                    text: "€ 579,00",
+                    fontColor: AppColors.contentPrimaryLight,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w600,
+                  ),
+
+                  // Tabs
+                  Container(
+                    margin: const EdgeInsets.only(top: 24),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFFE0E0E0),
+                          width: 1.0,
+                        ),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(
+                        _tabs.length,
+                        (index) => InfoTabWidget(
+                          index: index,
+                          tabController: _tabController,
+                          tabs: _tabs,
+                          onUpdate: () => setState(() {}),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Tab content - directly build the relevant content based on tab index
+                  TabContentWidget(
+                    tabController: _tabController,
+                    informationTabContent: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: TextWidget(
+                        text:
+                            "This weekend is designed for everyone who wants to optimally prepare for their first race weekend of 2025 – \namong like-minded people and with the goal of leaving on Sunday faster, more consistent, or safer than they arrived on Thursday evening.Get into your rhythm on Friday, test new things during Saturday's training sessions, solidify them in the afternoon 2-hour race, and go all out in the sprint race on Sunday As always, you don’t have to worry about hidden costs with us. Transponders, timekeeping, and live timing are included in the price.  You will receive breakfast for yourself and your companions from Friday to Sunday, and on Saturday evening, we’ll grill sausages for you and provide a keg of beer.",
+                        fontColor:
+                            AppColors.contentPrimaryLight.withOpacity(0.7),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        textAlignment: TextAlign.start,
+                      ),
+                    ),
+                    circuitTabContent: const CircuitInfoWidget(
+                      meters: "4211 Meters",
+                      leftTurns: "7 Left Turns",
+                      rightTurns: "8 Right Turns",
+                      imagePath: AppImagePath.mapImage,
+                    ),
+                    faqTabContent: Padding(
+                      padding: const EdgeInsets.only(top: 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ...List.generate(5, (index) {
+                            return const EventFAQWidget(
+                              titleText: "What is the event schedule?",
+                              descriptionText:
+                                  "The event schedule will be provided closer to the event date.",
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: ActionRowWidget(
+        purchaseTicketOnPressed: () {},
+        shareOnTap: () {},
+      ),
+    );
+  }
+}

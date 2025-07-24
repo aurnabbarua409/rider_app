@@ -1,0 +1,312 @@
+import 'package:easy_stepper/easy_stepper.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_strings.dart';
+import '../../../utils/app_size.dart';
+import '../../../widgets/button_widget/button_widget.dart';
+import '../../../widgets/space_widget/space_widget.dart';
+import '../../../widgets/text_widget/text_widgets.dart';
+
+class YourRacingTimelineWidget extends StatelessWidget {
+  final String image;
+  final String month;
+  final String date;
+  final String day;
+  final String eventName;
+  final String location;
+  final String time;
+  final String temperature;
+  final String laps;
+  final String badgeText;
+  final Color badgeTextColor;
+  final Color badgeTextBgColor;
+  final int activeStep;
+  final Function(int) onStepReached;
+  final List<IconData> stepIcons;
+  final List<IconData> activeStepIcons;
+  final List<IconData> finishedStepIcons;
+  final VoidCallback viewDetailsOnPressed;
+
+  const YourRacingTimelineWidget({
+    super.key,
+    required this.image,
+    required this.month,
+    required this.date,
+    required this.day,
+    required this.eventName,
+    required this.location,
+    required this.time,
+    required this.temperature,
+    required this.laps,
+    required this.badgeText,
+    required this.badgeTextColor,
+    required this.badgeTextBgColor,
+    required this.activeStep,
+    required this.onStepReached,
+    required this.stepIcons,
+    required this.activeStepIcons,
+    required this.finishedStepIcons,
+    required this.viewDetailsOnPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Date and Image Section
+        Container(
+          width: double.infinity,
+          margin: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: AppColors.greyLight),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(4),
+                      child: Image.asset(
+                        image, // Use local asset
+                        height: 227,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return const Center(
+                              child: Icon(Icons.error, color: Colors.red));
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: Container(
+                        width: ResponsiveUtils.width(72),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(6),
+                          border: Border.all(color: AppColors.secondBrandColor),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(vertical: 6),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: AppColors.mainBrandColor,
+                                borderRadius: const BorderRadius.vertical(
+                                    top: Radius.circular(6)),
+                                border: Border.all(
+                                    color: AppColors.secondBrandColor),
+                              ),
+                              child: TextWidget(
+                                text: month,
+                                fontColor: AppColors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 2),
+                              child: Column(
+                                children: [
+                                  TextWidget(
+                                    text: date,
+                                    fontColor: AppColors.contentPrimaryLight,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 22,
+                                  ),
+                                  TextWidget(
+                                    text: day,
+                                    fontColor: AppColors.contentPrimaryLight
+                                        .withOpacity(0.5),
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 12,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: ResponsiveUtils.width(200),
+                      child: TextWidget(
+                        text: eventName,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        fontColor: AppColors.contentPrimaryLight,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        textAlignment: TextAlign.start,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: badgeTextBgColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: TextWidget(
+                        text: badgeText,
+                        fontColor: badgeTextColor,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SpaceWidget(spaceHeight: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                width: ResponsiveUtils.width(300),
+                child: TextWidget(
+                  text: location,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  fontColor: AppColors.contentSecondaryLight,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  textAlignment: TextAlign.start,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.access_time,
+                          size: 16,
+                          color: AppColors.mainBrandColor,
+                        ),
+                        const SpaceWidget(spaceWidth: 4),
+                        TextWidget(
+                          text: time,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontSize: 14,
+                        ),
+                        const SpaceWidget(spaceWidth: 16),
+                        const Icon(
+                          Icons.device_thermostat_outlined,
+                          size: 16,
+                          color: AppColors.mainBrandColor,
+                        ),
+                        const SpaceWidget(spaceWidth: 4),
+                        TextWidget(
+                          text: temperature,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontSize: 14,
+                        ),
+                        const SpaceWidget(spaceWidth: 16),
+                        const Icon(
+                          Icons.loop,
+                          size: 16,
+                          color: AppColors.mainBrandColor,
+                        ),
+                        const SpaceWidget(spaceWidth: 4),
+                        TextWidget(
+                          text: laps,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontSize: 14,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              // Stepper Section
+              SizedBox(
+                height: 80,
+                child: EasyStepper(
+                  showLoadingAnimation: false,
+                  enableStepTapping: false,
+                  activeStep: activeStep,
+
+                  lineStyle: LineStyle(
+                    lineLength: 50,
+                    lineThickness: 2,
+                    lineType: LineType.dotted,
+                    defaultLineColor: AppColors.mainBrandColor.withOpacity(0.3),
+                    activeLineColor: AppColors.mainBrandColor,
+                    finishedLineColor: AppColors.mainBrandColor,
+                    progress: 0.5,
+                  ),
+                  stepShape: StepShape.rRectangle,
+                  stepBorderRadius: 10,
+                  borderThickness: 2,
+                  padding: const EdgeInsets.all(5),
+                  stepRadius: 25,
+                  finishedStepBackgroundColor: AppColors.mainBrandColor,
+                  activeStepBackgroundColor: AppColors.white,
+                  unreachedStepBackgroundColor: AppColors.white,
+                  activeStepBorderColor: AppColors.mainBrandColor,
+                  unreachedStepBorderColor: AppColors.contentSecondaryLight,
+                  finishedStepBorderColor: AppColors.mainBrandColor,
+                  steps: List.generate(
+                    stepIcons.length,
+                    (index) => EasyStep(
+                      icon: Icon(stepIcons[index], color: AppColors.grey),
+                      activeIcon: Icon(activeStepIcons[index],
+                          color: AppColors.mainBrandColor),
+                      finishIcon: Icon(finishedStepIcons[index],
+                          color: AppColors.white),
+                    ),
+                  ),
+                  onStepReached: onStepReached,
+                ),
+              ),
+
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Divider(
+                  color: AppColors.contentPrimaryLight.withOpacity(0.1),
+                  height: 1,
+                ),
+              ),
+              const SpaceWidget(spaceHeight: 16),
+              // Buttons Section
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: ButtonWidget(
+                  onPressed: viewDetailsOnPressed,
+                  label: AppStrings.viewDetails.tr,
+                  buttonWidth: double.infinity,
+                  buttonHeight: 45,
+                  backgroundColor: AppColors.white,
+                  borderColor: AppColors.mainBrandColor,
+                  fontSize: 14,
+                  textColor: AppColors.mainBrandColor,
+                ),
+              ),
+              const SpaceWidget(spaceHeight: 16),
+            ],
+          ),
+        ),
+        // Event Details
+      ],
+    );
+  }
+}

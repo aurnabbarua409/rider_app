@@ -1,0 +1,223 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:trackdays_planner/constants/app_image_path.dart';
+import 'package:trackdays_planner/utils/app_size.dart';
+
+import '../../../constants/app_colors.dart';
+import '../../../constants/app_icon_path.dart';
+import '../../../constants/app_strings.dart';
+import '../../../widgets/appbar_widget/appbar_widget.dart';
+import '../../../widgets/button_widget/button_widget.dart';
+import '../../../widgets/icon_button_widget/icon_button_widget.dart';
+import '../../../widgets/image_widget/image_widget.dart';
+import '../../../widgets/space_widget/space_widget.dart';
+import '../../../widgets/text_widget/text_widgets.dart';
+
+class CartItem {
+  String name;
+  String description;
+  double price;
+  int quantity;
+  String imageUrl;
+
+  CartItem({
+    required this.name,
+    required this.description,
+    required this.price,
+    required this.quantity,
+    required this.imageUrl,
+  });
+}
+
+class CartScreen extends StatefulWidget {
+  const CartScreen({super.key});
+
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  List<CartItem> cartItems = [
+    CartItem(
+      name: "Trackdaysplanner",
+      description: "Milieumat 2m x 1m",
+      price: 89.95,
+      quantity: 1,
+      imageUrl: AppImagePath.gearUpImage2,
+    ),
+    CartItem(
+      name: "Bridgestone Tire",
+      description: "Bridgestone V02 slick Front...",
+      price: 370.00,
+      quantity: 2,
+      imageUrl: AppImagePath.gearUpImage1,
+    ),
+  ];
+
+  double get totalPrice {
+    return cartItems.fold(0, (sum, item) => sum + item.price * item.quantity);
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      cartItems.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( 
+      backgroundColor: AppColors.thirdBrandColor,
+      appBar: const AppbarWidget(centerTitle: true),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: TextWidget(
+              text: AppStrings.cartItems.tr,
+              fontColor: AppColors.contentPrimaryLight,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
+          ),
+          ...List.generate(
+            cartItems.length,
+            (index) {
+              final item = cartItems[index];
+
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: ImageWidget(
+                            imagePath: item.imageUrl,
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SpaceWidget(spaceWidth: 12),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            TextWidget(
+                              text: item.name,
+                              fontColor: AppColors.contentPrimaryLight,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 18,
+                              textAlignment: TextAlign.start,
+                            ),
+                            const SpaceWidget(spaceHeight: 6),
+                            SizedBox(
+                              width: ResponsiveUtils.width(200),
+                              child: TextWidget(
+                                text: item.description,
+                                fontColor: AppColors.contentPrimaryLight
+                                    .withOpacity(0.5),
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                                textAlignment: TextAlign.start,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SpaceWidget(spaceHeight: 16),
+                            Row(
+                              children: [
+                                Container(
+                                  width: ResponsiveUtils.width(24),
+                                  height: ResponsiveUtils.width(24),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.mainBrandColor
+                                        .withOpacity(0.1),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Center(
+                                    child: TextWidget(
+                                      text: item.quantity.toString(),
+                                      fontColor: AppColors.mainBrandColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      textAlignment: TextAlign.start,
+                                    ),
+                                  ),
+                                ),
+                                const SpaceWidget(spaceWidth: 8),
+                                TextWidget(
+                                  text:
+                                      "€${(item.price * item.quantity).toStringAsFixed(2)}",
+                                  fontColor: AppColors.contentPrimaryLight,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                  textAlignment: TextAlign.start,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    IconButtonWidget(
+                      icon: AppIconPath.deleteIcon,
+                      onTap: () => removeItem(index),
+                      size: 20,
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
+          const Spacer(),
+          Container(
+            color: AppColors.white,
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TextWidget(
+                        text: AppStrings.totalPrice.tr,
+                        fontColor:
+                            AppColors.contentPrimaryLight.withOpacity(0.4),
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                      ),
+                      const SpaceWidget(spaceHeight: 2),
+                      TextWidget(
+                        text: "€${totalPrice.toStringAsFixed(2)}",
+                        fontColor: AppColors.contentPrimaryLight,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 28,
+                      ),
+                    ],
+                  ),
+                ),
+                const SpaceWidget(spaceWidth: 12),
+                Expanded(
+                  flex: 2,
+                  child: ButtonWidget(
+                    onPressed: () {},
+                    label: AppStrings.continueText.tr,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

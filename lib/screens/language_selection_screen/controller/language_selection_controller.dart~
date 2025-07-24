@@ -1,0 +1,13 @@
+import 'package:get/get.dart';
+
+class LanguageSelectionController extends GetxController {
+  var selectedLanguage = 'English'.obs; // Reactive state for selected language
+
+  void onLanguageChanged(String language) {
+    selectedLanguage.value = language; // Update the selected language
+  }
+
+  void submit() {
+    Get.snackbar("Success", 'Selected language: ${selectedLanguage.value}');
+  }
+}

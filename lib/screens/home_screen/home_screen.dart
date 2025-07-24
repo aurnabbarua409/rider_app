@@ -1,0 +1,452 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
+import 'package:trackdays_planner/constants/app_image_path.dart';
+import 'package:trackdays_planner/routes/app_routes.dart';
+import 'package:trackdays_planner/screens/home_screen/widgets/event_card.dart';
+import 'package:trackdays_planner/screens/home_screen/widgets/gearup_for_the_track_widget.dart';
+import 'package:trackdays_planner/screens/home_screen/widgets/home_screen_appbar_widget.dart';
+import 'package:trackdays_planner/screens/home_screen/widgets/upcoming_track_days_widget.dart';
+import 'package:trackdays_planner/screens/home_screen/widgets/your_order_card_widget.dart';
+import 'package:trackdays_planner/widgets/image_widget/image_widget.dart';
+import 'package:trackdays_planner/widgets/text_button_widget/text_button_widget.dart';
+
+import '../../constants/app_colors.dart';
+import '../../constants/app_strings.dart';
+import '../../widgets/space_widget/space_widget.dart';
+import '../../widgets/text_widget/text_widgets.dart';
+
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
+
+  final List<String> upcomingImages = [
+    AppImagePath.upcomingImage,
+    AppImagePath.upcomingImage,
+    AppImagePath.upcomingImage,
+  ];
+
+  final List<String> months = [
+    "JAN",
+    "FEB",
+    "MAR",
+  ];
+
+  final List<String> dates = [
+    "12",
+    "13",
+    "14",
+  ];
+
+  final List<String> days = [
+    "MON",
+    "TUES",
+    "WED",
+  ];
+
+  final List<String> name = [
+    "Circuit de Valencia Ricardo Tormo",
+    "Most Autodrom",
+    "Circuit de Valencia Ricardo Tormo",
+  ];
+
+  final List<String> countries = [
+    "Spanje",
+    "Tsjechië",
+    "Tsjechië",
+  ];
+
+  final List<String> types = [
+    "New",
+    "Expired",
+    "New",
+  ];
+
+  final List<String> prices = [
+    "€699.00",
+    "€579.00",
+    "€699.00",
+  ];
+
+  // Gear up Section
+  final List<String> gearUpImages = [
+    AppImagePath.gearUpImage1,
+    AppImagePath.gearUpImage2,
+    AppImagePath.gearUpImage1,
+  ];
+
+  final List<String> brandImages = [
+    AppImagePath.brandImage1,
+    AppImagePath.brandImage2,
+    AppImagePath.brandImage1,
+  ];
+
+  final List<String> gearUpName = [
+    "Bridgestone",
+    "Trackdaysplanner",
+    "Bridgestone",
+  ];
+
+  final List<String> gearUpDetails = [
+    "Bridgestone V02 slick",
+    "Milieumat 2m x 1m",
+    "Bridgestone V02 slick",
+  ];
+
+  final List<String> gearUpPrices = [
+    "€245.00",
+    "€89.95",
+    "€245.00",
+  ];
+
+  // Gallery Images
+  final List<double> sizePattern = [1.3, 1.0, 1.5, 1.0, 0.7, 0.5];
+
+  // Dynamic tile data (replace with actual data source if needed)
+  final List<String> tileImages = [
+    AppImagePath.upcomingImage,
+    AppImagePath.galImage2,
+    AppImagePath.galImage3,
+    AppImagePath.galImage4,
+    AppImagePath.galImage5,
+    AppImagePath.upcomingImage,
+    // Add more images for larger datasets
+  ];
+
+  // Generate dynamic _cardTile list
+  List<StaggeredGridTile> get _cardTile {
+    return tileImages.asMap().entries.map((entry) {
+      int index = entry.key;
+      String imagePath = entry.value;
+      // Cycle through sizePattern
+      double mainAxisCellCount = sizePattern[index % sizePattern.length];
+
+      return StaggeredGridTile.count(
+        crossAxisCellCount: 1,
+        mainAxisCellCount: mainAxisCellCount,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: ImageWidget(
+            height: 20,
+            width: 20,
+            imagePath: imagePath,
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }).toList();
+  }
+
+  // Your Orders Image
+  final List<String> yourOrdersImages = [
+    AppImagePath.gearUpImage1,
+    AppImagePath.gearUpImage2,
+    AppImagePath.gearUpImage1,
+  ];
+
+  int activeStep = 2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
+      body: Column(
+        children: [
+          HomeScreenAppBarWidget(
+            searchController: searchController,
+            notificationLabel: '3',
+            cartLabel: '1',
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SpaceWidget(spaceHeight: 24),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24),
+                    child: TextWidget(
+                      text: "Welcome Back David",
+                      fontColor: AppColors.contentPrimaryLight,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 28,
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+
+                  // Your Purchased Events Section
+                  const EventCard(),
+
+                  const SpaceWidget(spaceHeight: 16),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                          text: AppStrings.yourGallery.tr,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        Row(
+                          children: [
+                            TextButtonWidget(
+                              onPressed: () {},
+                              text: AppStrings.viewGallery.tr,
+                              textColor: AppColors.mainBrandColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            const SpaceWidget(spaceWidth: 4),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.mainBrandColor,
+                              size: 12,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+
+                  // Gallery Section
+                  Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    // Staggered Grid View starts here
+                    child: StaggeredGrid.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 8,
+                      crossAxisSpacing: 8,
+                      children: _cardTile,
+                    ),
+                  ),
+
+                  const SpaceWidget(spaceHeight: 16),
+
+                  // Your Orders Section
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                          text: AppStrings.yourOrders.tr,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        Row(
+                          children: [
+                            TextButtonWidget(
+                              onPressed: () {},
+                              text: AppStrings.seeAll.tr,
+                              textColor: AppColors.mainBrandColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            const SpaceWidget(spaceWidth: 4),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.mainBrandColor,
+                              size: 12,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+
+                  YourOrderCardWidget(
+                    location: "Spain, Barcelona",
+                    orderImages: yourOrdersImages,
+                    activeStep: activeStep,
+                    totalPrice: 19.90,
+                    onStepReached: (index) {
+                      setState(() {
+                        activeStep = index;
+                      });
+                    },
+                    stepIcons: const [
+                      Icons.check_circle_outline,
+                      Icons.indeterminate_check_box_outlined,
+                      Icons.local_shipping_outlined,
+                    ],
+                    activeStepIcons: const [
+                      Icons.check_circle_outline,
+                      Icons.indeterminate_check_box_outlined,
+                      Icons.local_shipping_outlined,
+                    ],
+                    finishedStepIcons: const [
+                      Icons.check_circle_outline,
+                      Icons.indeterminate_check_box_outlined,
+                      Icons.local_shipping_outlined,
+                    ],
+                    onPressed: () {},
+                  ),
+
+                  const SpaceWidget(spaceHeight: 16),
+
+                  // Upcoming Track Days Section
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                          text: AppStrings.upcomingTrackDays.tr,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        Row(
+                          children: [
+                            TextButtonWidget(
+                              onPressed: () {},
+                              text: AppStrings.seeAll.tr,
+                              textColor: AppColors.mainBrandColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            const SpaceWidget(spaceWidth: 4),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.mainBrandColor,
+                              size: 12,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      children: List.generate(
+                        upcomingImages.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(
+                            left: index == 0 ? 24 : 0,
+                            right: index == 2 ? 24 : 16,
+                          ),
+                          child: UpcomingTrackDaysWidget(
+                            imagePath: upcomingImages[index],
+                            month: months[index],
+                            day: dates[index],
+                            weekday: days[index],
+                            eventName: name[index],
+                            location: countries[index],
+                            time: '16:00 - 18:30',
+                            temperature: '23°',
+                            laps: '14 T',
+                            price: prices[index],
+                            badgeText: types[index],
+                            badgeTextColor: types[index] == "New"
+                                ? AppColors.green
+                                : AppColors.gold,
+                            badgeTextBgColor: types[index] == "New"
+                                ? AppColors.green.withOpacity(0.1)
+                                : AppColors.yellow.withOpacity(0.1),
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.productDetailScreen);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 24),
+
+                  // Ads Section
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: const ImageWidget(
+                        height: 160,
+                        width: double.infinity,
+                        imagePath: AppImagePath.adsImage,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 24),
+
+                  // Gear Up for the Track Section
+                  Padding(
+                    padding: const EdgeInsets.only(left: 24, right: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextWidget(
+                          text: AppStrings.gearUp.tr,
+                          fontColor: AppColors.contentPrimaryLight,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
+                        Row(
+                          children: [
+                            TextButtonWidget(
+                              onPressed: () {},
+                              text: AppStrings.seeAll.tr,
+                              textColor: AppColors.mainBrandColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            const SpaceWidget(spaceWidth: 4),
+                            const Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.mainBrandColor,
+                              size: 12,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 16),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    child: Row(
+                      children: List.generate(
+                        gearUpImages.length,
+                        (index) => Padding(
+                          padding: EdgeInsets.only(
+                            left: index == 0 ? 24 : 0,
+                            right: index == 2 ? 24 : 16,
+                          ),
+                          child: GearUpForTheTrackWidget(
+                            imagePath: gearUpImages[index],
+                            brandImagePath: brandImages[index],
+                            eventName: gearUpName[index],
+                            location: gearUpDetails[index],
+                            price: gearUpPrices[index],
+                            onPressed: () {
+                              Get.toNamed(AppRoutes.productDetailScreen);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SpaceWidget(spaceHeight: 24),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
