@@ -90,9 +90,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SpaceWidget(
                     spaceHeight: 20,
                   ),
-                  const ProfileItemWidget(
-                      icon: AppIconPath.orderConfirmationIcon,
-                      label: AppStrings.orderHistory),
+                  GestureDetector(
+                    onTap: () => Get.toNamed(AppRoutes.orderHistoryScreen),
+                    child: const ProfileItemWidget(
+                        icon: AppIconPath.orderConfirmationIcon,
+                        label: AppStrings.orderHistory),
+                  ),
                   const SpaceWidget(
                     spaceHeight: 10,
                   ),

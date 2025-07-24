@@ -14,18 +14,19 @@ class TextFieldWidget extends StatefulWidget {
   final int maxLines; // Add maxLines as a parameter
   final VoidCallback? onTapSuffix;
   final bool? read;
+  final Color? iconColor;
 
-  const TextFieldWidget({
-    super.key,
-    required this.controller,
-    required this.labelText,
-    this.validator,
-    this.suffixIcon,
-    this.keyboardType,
-    this.read = false,
-    this.maxLines = 1, // Default value is 1
-    this.onTapSuffix,
-  });
+  const TextFieldWidget(
+      {super.key,
+      required this.controller,
+      required this.labelText,
+      this.validator,
+      this.suffixIcon,
+      this.keyboardType,
+      this.read = false,
+      this.maxLines = 1, // Default value is 1
+      this.onTapSuffix,
+      this.iconColor});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -60,6 +61,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           color: AppColors.contentPrimaryLight,
         ),
         decoration: InputDecoration(
+          alignLabelWithHint: true,
           fillColor: AppColors.white,
           labelText: widget.labelText,
           labelStyle: TextStyle(
@@ -91,7 +93,8 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                       padding: const EdgeInsets.all(13),
                       child: SvgPicture.asset(
                         widget.suffixIcon!,
-                        color: AppColors.contentPrimaryLight,
+                        color:
+                            widget.iconColor ?? AppColors.contentPrimaryLight,
                         height: ResponsiveUtils.width(18),
                         width: ResponsiveUtils.width(18),
                       ),

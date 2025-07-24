@@ -3,19 +3,23 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:trackdays_planner/constants/app_colors.dart';
 
-class DropdownButtonFromFieldWidget extends StatelessWidget {
-  const DropdownButtonFromFieldWidget(
-      {super.key,     
+class DropdownButtonFormFieldWidget extends StatelessWidget {
+  const DropdownButtonFormFieldWidget(
+      {super.key,
       required this.label,
       required this.onChanged,
       required this.items,
-      this.width // Add this line
+      this.width,
+      this.filled = false,
+      this.fillColor // Add this line
       });
- 
+
   final String label;
   final List<DropdownMenuItem<String>> items;
   final void Function(String) onChanged;
   final double? width;
+  final bool? filled;
+  final Color? fillColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,8 @@ class DropdownButtonFromFieldWidget extends StatelessWidget {
       child: DropdownButtonFormField<String>(
         hint: Text(label),
         decoration: InputDecoration(
+          filled: filled,
+          fillColor: fillColor,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: AppColors.greyLight),

@@ -46,6 +46,7 @@ class AppIconPath {
   static const String instagramIcon = "assets/icons/instagram_icon.svg";
   static const String tiktokIcon = "assets/icons/tiktok_icon.svg";
   static const String linkedinIcon = "assets/icons/linkedin_icon.svg";
-
-
+  static const String calenderIcon = "assets/icons/calendar_icon.svg";
+  static const String editIcon = "assets/icons/edit_icon.svg";
+  static const String infoIcon = "assets/icons/info_icon.svg";
 }

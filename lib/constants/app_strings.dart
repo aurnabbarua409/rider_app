@@ -187,4 +187,12 @@ class AppStrings {
   static const String tiktokUrl = "Tiktok URl";
   static const String linkedinUrl = "Linkedin URL";
   static const String update = "Update";
+  static const String nationality = "Nationality";
+  static const String language = "Language";
+
+  // Order History
+  static const String lastMonth = "Last Month";
+  static const String orderedOn = "Ordered On";
+  static const String orderStatus = "Order Status";
+
 }

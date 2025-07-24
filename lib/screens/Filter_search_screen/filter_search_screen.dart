@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:trackdays_planner/constants/app_colors.dart';
 import 'package:trackdays_planner/constants/app_strings.dart';
 import 'package:trackdays_planner/widgets/button_widget/button_widget.dart';
-import 'package:trackdays_planner/widgets/dropdown_button_from_field_widget/dropdown_button_from_field_widget.dart';
+import 'package:trackdays_planner/widgets/dropdown_button_form_field_widget/dropdown_button_form_field_widget.dart';
 import 'package:trackdays_planner/widgets/space_widget/space_widget.dart';
 import 'package:trackdays_planner/widgets/text_button_widget/text_button_widget.dart';
 import 'package:trackdays_planner/widgets/text_field_widget/text_field_widget.dart';
@@ -147,7 +147,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           Row(
                             children: [
                               Expanded(
-                                child: DropdownButtonFromFieldWidget(
+                                child: DropdownButtonFormFieldWidget(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
                                     label: AppStrings.selectCircuit,
@@ -171,7 +171,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                                 spaceWidth: 10,
                               ),
                               Expanded(
-                                child: DropdownButtonFromFieldWidget(
+                                child: DropdownButtonFormFieldWidget(
                                     width:
                                         MediaQuery.of(context).size.width * 0.4,
                                     label: AppStrings.chooseCity,
@@ -239,7 +239,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           const SpaceWidget(
                             spaceHeight: 10,
                           ),
-                          DropdownButtonFromFieldWidget(
+                          DropdownButtonFormFieldWidget(
                             // selectedValue: selectedValue!,
                             label: AppStrings.chooseOrganizer,
                             onChanged: (p0) {
@@ -261,7 +261,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           const SpaceWidget(
                             spaceHeight: 10,
                           ),
-                          DropdownButtonFromFieldWidget(
+                          DropdownButtonFormFieldWidget(
                             // selectedValue: selectedValue!,
                             label: AppStrings.chooseYourRidingGroup,
                             onChanged: (p0) {
@@ -329,7 +329,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           const SpaceWidget(
                             spaceHeight: 10,
                           ),
-                          DropdownButtonFromFieldWidget(
+                          DropdownButtonFormFieldWidget(
                               label: AppStrings.selectProductCategory,
                               onChanged: (p0) {
                                 setState(() {
@@ -352,7 +352,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           const SpaceWidget(
                             spaceHeight: 10,
                           ),
-                          DropdownButtonFromFieldWidget(
+                          DropdownButtonFormFieldWidget(
                               label: AppStrings.chooseBrand,
                               onChanged: (p0) {
                                 setState(() {
@@ -402,7 +402,7 @@ class _FilterSearchScreenState extends State<FilterSearchScreen> {
                           const SpaceWidget(
                             spaceHeight: 10,
                           ),
-                          DropdownButtonFromFieldWidget(
+                          DropdownButtonFormFieldWidget(
                               label: AppStrings.selectProductType,
                               onChanged: (p0) {
                                 setState(() {

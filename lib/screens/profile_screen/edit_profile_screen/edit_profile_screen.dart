@@ -7,6 +7,8 @@ import 'package:trackdays_planner/constants/app_strings.dart';
 import 'package:trackdays_planner/screens/profile_screen/edit_profile_screen/controller/edit_profile_controller.dart';
 import 'package:trackdays_planner/widgets/appbar_widget/appbar_widget.dart';
 import 'package:trackdays_planner/widgets/button_widget/button_widget.dart';
+import 'package:trackdays_planner/widgets/dropdown_button_form_field_widget/dropdown_button_form_field_widget.dart';
+import 'package:trackdays_planner/widgets/icon_widget/icon_widget.dart';
 import 'package:trackdays_planner/widgets/space_widget/space_widget.dart';
 import 'package:trackdays_planner/widgets/text_field_widget/text_field_widget.dart';
 import 'package:trackdays_planner/widgets/text_widget/text_widgets.dart';
@@ -22,7 +24,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppbarWidget(
+      appBar: const AppbarWidget(
         centerTitle: true,
         title: TextWidget(
           text: AppStrings.editProfile,
@@ -36,85 +38,122 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(AppImagePath.person),
-                      radius: 60,
-                    ),
-                    SpaceWidget(
+                    const Stack(
+                        alignment: AlignmentDirectional.bottomEnd,
+                        children: [
+                          CircleAvatar(
+                            backgroundImage: AssetImage(AppImagePath.person),
+                            radius: 60,
+                          ),
+                          IconWidget(
+                              height: 35, width: 35, icon: AppIconPath.editIcon)
+                        ]),
+                    const SpaceWidget(
                       spaceHeight: 20,
                     ),
-                    TextWidget(
+                    const TextWidget(
                       text: AppStrings.personalInformation,
                       fontColor: AppColors.contentSecondaryLight,
                       fontSize: 18,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 20,
                     ),
                     TextFieldWidget(
                         controller: controller.fullnameController,
                         labelText: AppStrings.fullName),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.emailController,
                         labelText: AppStrings.email),
-                    SpaceWidget(
+                    const SpaceWidget(
+                      spaceHeight: 10,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DropdownButtonFormFieldWidget(
+                              filled: true,
+                              fillColor: AppColors.white,
+                              label: AppStrings.nationality,
+                              onChanged: (p0) {},
+                              items: []),
+                        ),
+                        const SpaceWidget(
+                          spaceWidth: 10,
+                        ),
+                        Expanded(
+                          child: DropdownButtonFormFieldWidget(
+                              filled: true,
+                              fillColor: AppColors.white,
+                              label: AppStrings.language,
+                              onChanged: (p0) {},
+                              items: []),
+                        ),
+                      ],
+                    ),
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.phoneNumberController,
                         labelText: AppStrings.phoneNumber),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
-                        controller: controller.dateOfBirthController,
-                        labelText: AppStrings.dateOfBirth),
-                    SpaceWidget(
+                      controller: controller.dateOfBirthController,
+                      labelText: AppStrings.dateOfBirth,
+                      suffixIcon: AppIconPath.calenderIcon,
+                      iconColor: AppColors.mainBrandColor,
+                    ),
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.racingNumberController,
                         labelText: AppStrings.racingNumber),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
-                        controller: controller.biographyController,
-                        labelText: AppStrings.biography),
-                    SpaceWidget(
+                      controller: controller.biographyController,
+                      labelText: AppStrings.biography,
+                      maxLines: 3,
+                    ),
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
-                    Divider(
+                    const Divider(
                       color: AppColors.greyLight,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
-                    TextWidget(
+                    const TextWidget(
                       text: AppStrings.addressDetails,
                       fontColor: AppColors.contentSecondaryLight,
                       fontSize: 18,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.countryController,
                         labelText: AppStrings.country),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.streetController,
                         labelText: AppStrings.streetName),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     Row(
@@ -124,7 +163,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               controller: controller.aptSuiteUnitController,
                               labelText: AppStrings.aptSuiteUnit),
                         ),
-                        SpaceWidget(
+                        const SpaceWidget(
                           spaceWidth: 10,
                         ),
                         Expanded(
@@ -134,7 +173,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         )
                       ],
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     Row(
@@ -144,7 +183,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               controller: controller.stateProvinceController,
                               labelText: AppStrings.stateProvince),
                         ),
-                        SpaceWidget(
+                        const SpaceWidget(
                           spaceWidth: 10,
                         ),
                         Expanded(
@@ -154,27 +193,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         )
                       ],
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
                         controller: controller.zipPostalCodeController,
                         labelText: AppStrings.zipPostalCode),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
-                    Divider(
+                    const Divider(
                       color: AppColors.greyLight,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
-                    TextWidget(
+                    const TextWidget(
                       text: AppStrings.socialMedia,
                       fontColor: AppColors.contentSecondaryLight,
                       fontSize: 18,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
@@ -182,7 +221,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       labelText: AppStrings.facebookUrl,
                       suffixIcon: AppIconPath.facebookIcon,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
@@ -190,7 +229,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       labelText: AppStrings.instagramUrl,
                       suffixIcon: AppIconPath.instagramIcon,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
@@ -198,7 +237,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       labelText: AppStrings.tiktokUrl,
                       suffixIcon: AppIconPath.tiktokIcon,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 10,
                     ),
                     TextFieldWidget(
@@ -206,7 +245,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       labelText: AppStrings.linkedinUrl,
                       suffixIcon: AppIconPath.linkedinIcon,
                     ),
-                    SpaceWidget(
+                    const SpaceWidget(
                       spaceHeight: 20,
                     ),
                   ],
@@ -214,12 +253,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               Container(
                 width: double.infinity,
-                padding:
-                    EdgeInsets.only(left: 20, right: 20, top: 15, bottom: 40),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 15, bottom: 40),
                 decoration: BoxDecoration(
                     color: AppColors.white,
-                    border: Border.all(color: AppColors.contentSecondaryLight)),
-                child: ButtonWidget(label: AppStrings.update),
+                    border: Border.all(color: AppColors.greyLight)),
+                child: const ButtonWidget(label: AppStrings.update),
               )
             ],
           ),

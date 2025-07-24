@@ -5,6 +5,7 @@ import 'package:trackdays_planner/screens/auth_screens/forget_password_screen/fo
 import 'package:trackdays_planner/screens/auth_screens/set_new_password_screen/set_new_password_screen.dart';
 import 'package:trackdays_planner/screens/cart_screen/checkout_screen/checkout_screen.dart';
 import 'package:trackdays_planner/screens/profile_screen/edit_profile_screen/edit_profile_screen.dart';
+import 'package:trackdays_planner/screens/profile_screen/order_history_screen/order_history_screen.dart';
 
 import '../screens/auth_screens/login_screen/login_screen.dart';
 import '../screens/auth_screens/register_screen/register_screen.dart';
@@ -116,6 +117,11 @@ class RouteManager {
       GetPage(
         name: AppRoutes.editProfileScreen,
         page: () => EditProfileScreen(),
+        // binding: GeneralBindings(),
+      ),
+      GetPage(
+        name: AppRoutes.orderHistoryScreen,
+        page: () => OrderHistoryScreen(),
         // binding: GeneralBindings(),
       ),
     ];
