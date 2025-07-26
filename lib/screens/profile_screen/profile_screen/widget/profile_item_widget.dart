@@ -20,7 +20,7 @@ class ProfileItemWidget extends StatelessWidget {
         TextWidget(
           text: label,
           fontColor: AppColors.contentPrimaryLight,
-          fontSize: 20,
+          fontSize: 18,
         ),
         const Spacer(),
         const IconWidget(

@@ -121,19 +121,24 @@ class ProductScreenAppBarWidget extends StatelessWidget {
                   ),
                 ),
                 const SpaceWidget(spaceWidth: 16),
-                IconButton(
-                  onPressed: () {
-                    final controller = TextEditingController();
-                    Get.bottomSheet(FilterSearchScreen());
-                  },
-                  icon: Badge(
-                    isLabelVisible: true,
-                    label: Text(notificationLabel),
-                    backgroundColor: AppColors.mainBrandColor,
-                    child: const IconWidget(
-                      icon: AppIconPath.filterIcon,
-                      width: 55,
-                      height: 55,
+                Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.greyLight),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: IconButton(
+                    onPressed: () {
+                      Get.bottomSheet(const FilterSearchScreen());
+                    },
+                    icon: Badge(
+                      isLabelVisible: true,
+                      label: Text(notificationLabel),
+                      backgroundColor: AppColors.mainBrandColor,
+                      child: const IconWidget(
+                        icon: AppIconPath.filterIcon1,
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
                   ),
                 )

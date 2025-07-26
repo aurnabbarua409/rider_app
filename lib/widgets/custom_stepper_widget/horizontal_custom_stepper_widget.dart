@@ -61,7 +61,7 @@ class HorizontalCustomStepperWidget extends StatelessWidget {
                 : badgePosition == StepperBadgePosition.start
                     ? const EdgeInsets.only(left: 15, bottom: 15)
                     : const EdgeInsets.only(left: 15, top: 15),
-            child: Column(
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: badgePosition == StepperBadgePosition.center
                   ? MainAxisAlignment.center

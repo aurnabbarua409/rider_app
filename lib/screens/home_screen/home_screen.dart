@@ -25,7 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController searchController = TextEditingController();
-
+  final String searchQuery = "";
   final List<String> upcomingImages = [
     AppImagePath.upcomingImage,
     AppImagePath.upcomingImage,
@@ -169,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SpaceWidget(spaceHeight: 24),
+
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: TextWidget(

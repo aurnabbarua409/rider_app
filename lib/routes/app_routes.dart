@@ -22,4 +22,5 @@ class AppRoutes {
   static const filterSearchScreen = "/filterSearchScreen";
   static const editProfileScreen = "/editProfileScreen";
   static const orderHistoryScreen = "/orderHistoryScreen";
+  static const orderDetailsScreen = "/orderDetailsScreen";
 }

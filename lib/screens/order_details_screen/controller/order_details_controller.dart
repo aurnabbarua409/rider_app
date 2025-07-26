@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trackdays_planner/constants/app_image_path.dart';
 import 'package:trackdays_planner/models/card_item_model.dart';
 import 'package:trackdays_planner/models/event_item_model.dart';
 
-class CheckoutController extends GetxController {
+class OrderDetailsController extends GetxController {
   final RxList<CartItemModel> cardItem = <CartItemModel>[].obs;
   final Rxn<EventItemModel> eventItem = Rxn<EventItemModel>();
   final countryController = TextEditingController();
@@ -19,7 +19,7 @@ class CheckoutController extends GetxController {
   final insuranceNumberController = TextEditingController();
   final groupController = TextEditingController();
   final pitboxController = TextEditingController();
-  final discountController = TextEditingController();
+  final paymentController = TextEditingController();
   @override
   void onClose() {
     // TODO: implement onClose
@@ -36,7 +36,7 @@ class CheckoutController extends GetxController {
     insuranceNumberController.dispose();
     groupController.dispose();
     pitboxController.dispose();
-    discountController.dispose();
+    paymentController.dispose();
   }
 
   @override
@@ -63,7 +63,7 @@ class CheckoutController extends GetxController {
           name: "Bridgestone",
           description: "Bridgestone",
           price: 245.00,
-          quantity: 2,
+          quantity: 3,
           imageUrl: AppImagePath.gearUpImage1,
           brandImageUrl: AppImagePath.frPerformanceImage),
     ];

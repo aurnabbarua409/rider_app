@@ -19,6 +19,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
       body: GetBuilder(
         init: SetNewPasswordController(),
         builder: (controller) => SafeArea(
@@ -40,6 +41,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                   text: AppStrings.setNewPasswordDetails,
                   fontColor: AppColors.contentSecondaryLight,
                   textAlignment: TextAlign.left,
+                  softwrap: true,
                 ),
                 const SpaceWidget(
                   spaceHeight: 25,
@@ -49,7 +51,7 @@ class _SetNewPasswordScreenState extends State<SetNewPasswordScreen> {
                   labelText: AppStrings.newPassword,
                 ),
                 const SpaceWidget(
-                  spaceHeight: 20,
+                  spaceHeight: 15,
                 ),
                 TextFieldWidget(
                   controller: controller.confirmNewPasswordController,

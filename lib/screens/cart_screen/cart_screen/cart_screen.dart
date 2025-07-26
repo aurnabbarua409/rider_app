@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trackdays_planner/constants/app_image_path.dart';
-import 'package:trackdays_planner/models/card_item_model.dart';
-import 'package:trackdays_planner/models/event_item_model.dart';
 import 'package:trackdays_planner/routes/app_routes.dart';
+import 'package:trackdays_planner/screens/cart_screen/cart_screen/controller/cart_Controller.dart';
 import 'package:trackdays_planner/utils/app_size.dart';
 import 'package:trackdays_planner/widgets/date_badge_widget/date_badge_widget.dart';
 import 'package:trackdays_planner/widgets/icon_widget/icon_widget.dart';
@@ -18,10 +16,6 @@ import '../../../widgets/image_widget/image_widget.dart';
 import '../../../widgets/space_widget/space_widget.dart';
 import '../../../widgets/text_widget/text_widgets.dart';
 
-
-
-
-
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
 
@@ -30,41 +24,15 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  List<EventItemModel> eventItem = [
-    EventItemModel("APR", "25", "Mon", "FR-Performance (Autodrom Most)",
-        "Most, 435 13 Czech Republic", 1, 89.95)
-  ];
-  List<CartItemModel> cartItems = [
-    CartItemModel(
-        name: "Trackdaysplanner",
-        description: "Milieumat 2m x 1m",
-        price: 89.95,
-        quantity: 1,
-        imageUrl: AppImagePath.gearUpImage2,
-        brandImageUrl: AppImagePath.appLogoRed),
-    CartItemModel(
-        name: "Bridgestone Tire",
-        description: "Bridgestone V02 slick Front...",
-        price: 370.00,
-        quantity: 2,
-        imageUrl: AppImagePath.gearUpImage1,
-        brandImageUrl: AppImagePath.frPerformanceImage),
-  ];
-
-  double get totalPrice {
-    return cartItems.fold(0, (sum, item) => sum + item.price * item.quantity);
-  }
-
-  void removeItem(int index) {
-    setState(() {
-      cartItems.removeAt(index);
-    });
-  }
+  final controller = Get.put(CartController());
 
   Widget EmptyCard() {
     return Scaffold(
       backgroundColor: AppColors.thirdBrandColor,
-      appBar: const AppbarWidget(centerTitle: true),
+      appBar: const AppbarWidget(
+        centerTitle: true,
+        backgroundColor: AppColors.thirdBrandColor,
+      ),
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
               height: 100,
               width: 100,
               icon: AppIconPath.cartIcon,
-              color: AppColors.contentSecondaryLight,
+              color: AppColors.greyLight,
             ),
             SpaceWidget(
               spaceHeight: 20,
@@ -90,6 +58,7 @@ class _CartScreenState extends State<CartScreen> {
               padding: EdgeInsets.symmetric(horizontal: 30),
               child: TextWidget(
                 text: AppStrings.emptyCartDetails,
+                softwrap: true,
                 fontColor: AppColors.contentSecondaryLight,
               ),
             ),
@@ -97,7 +66,10 @@ class _CartScreenState extends State<CartScreen> {
         ),
       ),
       bottomNavigationBar: Container(
-          color: AppColors.white,
+          decoration: BoxDecoration(
+            border: Border.all(color: AppColors.greyLight),
+            color: AppColors.white,
+          ),
           padding:
               const EdgeInsets.only(left: 25, right: 25, top: 20, bottom: 30),
           child: ButtonWidget(
@@ -109,7 +81,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (cartItems.isEmpty && eventItem.isEmpty) {
+    if (controller.cartItems.isEmpty && controller.eventItem.isEmpty) {
       return EmptyCard();
     }
     return Scaffold(
@@ -128,9 +100,9 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           ...List.generate(
-            cartItems.length,
+            controller.cartItems.length,
             (index) {
-              final item = cartItems[index];
+              final item = controller.cartItems[index];
 
               return Padding(
                 padding:
@@ -222,7 +194,7 @@ class _CartScreenState extends State<CartScreen> {
                     ),
                     IconButtonWidget(
                       icon: AppIconPath.deleteIcon,
-                      onTap: () => removeItem(index),
+                      onTap: () => controller.removeItem(index),
                       size: 20,
                     ),
                   ],
@@ -237,9 +209,9 @@ class _CartScreenState extends State<CartScreen> {
             ),
           ),
           ...List.generate(
-            eventItem.length,
+            controller.eventItem.length,
             (index) {
-              final item = eventItem[index];
+              final item = controller.eventItem[index];
               return Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
@@ -328,7 +300,7 @@ class _CartScreenState extends State<CartScreen> {
                           Spacer(),
                           IconButtonWidget(
                             icon: AppIconPath.deleteIcon,
-                            onTap: () => removeItem(index),
+                            onTap: () => controller.removeItem(index),
                             size: 20,
                           ),
                         ],
@@ -360,7 +332,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       const SpaceWidget(spaceHeight: 2),
                       TextWidget(
-                        text: "€${totalPrice.toStringAsFixed(2)}",
+                        text: "€${controller.totalPrice.toStringAsFixed(2)}",
                         fontColor: AppColors.contentPrimaryLight,
                         fontWeight: FontWeight.w600,
                         fontSize: 28,

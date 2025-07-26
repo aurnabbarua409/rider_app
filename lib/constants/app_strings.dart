@@ -195,4 +195,17 @@ class AppStrings {
   static const String orderedOn = "Ordered On";
   static const String orderStatus = "Order Status";
 
+  // Order details
+  static const String orderDetails = "Order Details";
+  static const String paymentMethod = "Payment Method";
+  static const String orderNumber = "Order Number";
+  static const String orderDate = "Order Date";
+  static const String itemsCount = "Items Count";
+  static const String itemsPrice = "Items Price";
+  static const String discount = "Discount";
+  static const String downloadInvoice = "Download Invoice";
+  static const String cancelOrder = "Cancel Order";
+
+  // Search Result Screen
+  static const String searchResultsFor = "Search Results for";
 }

@@ -8,19 +8,21 @@ class DateBadgeWidget extends StatelessWidget {
   final String date;
   final String day;
   final double width;
+  final double height;
 
-  const DateBadgeWidget({
-    super.key,
-    required this.month,
-    required this.date,
-    required this.day,
-    this.width = 72,
-  });
+  const DateBadgeWidget(
+      {super.key,
+      required this.month,
+      required this.date,
+      required this.day,
+      this.width = 72,
+      this.height = 90});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: ResponsiveUtils.width(width),
+      height: ResponsiveUtils.height(height),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(6),

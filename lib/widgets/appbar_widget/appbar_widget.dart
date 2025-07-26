@@ -15,17 +15,18 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final Widget? leading;
   final bool showLeading;
   final Widget? title;
+  final EdgeInsetsGeometry? actionsPadding;
 
-  const AppbarWidget({
-    super.key,
-    this.action,
-    this.bottom,
-    this.centerTitle, // Add centerTitle to constructor
-    this.backgroundColor,
-    this.leading,
-    this.showLeading = true,
-    this.title
-  });
+  const AppbarWidget(
+      {super.key,
+      this.action,
+      this.bottom,
+      this.centerTitle, // Add centerTitle to constructor
+      this.backgroundColor,
+      this.leading,
+      this.showLeading = true,
+      this.title,
+      this.actionsPadding});
 
   @override
   Widget build(BuildContext context) {
@@ -46,15 +47,17 @@ class AppbarWidget extends StatelessWidget implements PreferredSizeWidget {
 
       titleSpacing: -4,
       actions: action != null ? [action!] : null,
-      title: title?? const ImageWidget(
-        height: 24,
-        width: 187,
-        imagePath: AppImagePath.appLogoRed,
-        fit: BoxFit.contain,
-      ),
+      title: title ??
+          const ImageWidget(
+            height: 24,
+            width: 187,
+            imagePath: AppImagePath.appLogoRed,
+            fit: BoxFit.contain,
+          ),
       bottom: bottom,
       // Add bottom to AppBar
-      centerTitle: centerTitle, // Set centerTitle in AppBar
+      centerTitle: centerTitle,
+      actionsPadding: actionsPadding, // Set centerTitle in AppBar
     );
   }
 

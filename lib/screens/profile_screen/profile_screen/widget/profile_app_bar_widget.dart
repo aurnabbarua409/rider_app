@@ -4,10 +4,8 @@ import 'package:trackdays_planner/constants/app_colors.dart';
 import 'package:trackdays_planner/constants/app_icon_path.dart';
 import 'package:trackdays_planner/constants/app_image_path.dart';
 import 'package:trackdays_planner/routes/app_routes.dart';
-import 'package:trackdays_planner/utils/app_size.dart';
 import 'package:trackdays_planner/widgets/icon_widget/icon_widget.dart';
 import 'package:trackdays_planner/widgets/image_widget/image_widget.dart';
-import 'package:trackdays_planner/widgets/space_widget/space_widget.dart';
 
 class ProfileAppBarWidget extends StatelessWidget {
   const ProfileAppBarWidget({super.key});
@@ -33,11 +31,11 @@ class ProfileAppBarWidget extends StatelessWidget {
               IconButton(
                 tooltip: "Notifications",
                 onPressed: () {},
-                icon: Badge(
+                icon: const Badge(
                   isLabelVisible: true,
                   label: Text("3"),
                   backgroundColor: AppColors.mainBrandColor,
-                  child: const IconWidget(
+                  child: IconWidget(
                     icon: AppIconPath.notificationIcon,
                     width: 24,
                     height: 24,
@@ -55,11 +53,11 @@ class ProfileAppBarWidget extends StatelessWidget {
                 onPressed: () {
                   Get.toNamed(AppRoutes.cartScreen);
                 },
-                icon: Badge(
+                icon: const Badge(
                   isLabelVisible: true,
                   label: Text("2"),
                   backgroundColor: AppColors.mainBrandColor,
-                  child: const IconWidget(
+                  child: IconWidget(
                     icon: AppIconPath.cartIcon,
                     width: 24,
                     height: 24,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:trackdays_planner/screens/Filter_search_screen/filter_search_screen.dart';
+import 'package:trackdays_planner/screens/search_result_screen/search_result_screen.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_icon_path.dart';
@@ -90,6 +92,14 @@ class HomeScreenAppBarWidget extends StatelessWidget {
                 Expanded(
                   child: TextFormField(
                     controller: searchController,
+                    onChanged: (value) {
+                      //for demo only
+                      Get.to(SearchResultScreen(
+                          searchController: searchController));
+                      if (value.isEmpty) {
+                        Get.back();
+                      }
+                    },
                     decoration: InputDecoration(
                       hintText: 'Search for event, product, etc.',
                       hintStyle: TextStyle(
@@ -127,18 +137,24 @@ class HomeScreenAppBarWidget extends StatelessWidget {
                 const SpaceWidget(
                   spaceWidth: 15,
                 ),
-                IconButton(
-                  onPressed: () {
-                    Get.bottomSheet(FilterSearchScreen());
-                  },
-                  icon: Badge(
-                    isLabelVisible: true,
-                    label: Text(notificationLabel),
-                    backgroundColor: AppColors.mainBrandColor,
-                    child: const IconWidget(
-                      icon: AppIconPath.filterIcon,
-                      width: 55,
-                      height: 55,
+                Container(
+                  decoration: BoxDecoration(
+                      color: AppColors.white,
+                      border: Border.all(color: AppColors.greyLight),
+                      borderRadius: BorderRadius.circular(15)),
+                  child: IconButton(
+                    onPressed: () {
+                      Get.bottomSheet(const FilterSearchScreen());
+                    },
+                    icon: Badge(
+                      isLabelVisible: true,
+                      label: Text(notificationLabel),
+                      backgroundColor: AppColors.mainBrandColor,
+                      child: const IconWidget(
+                        icon: AppIconPath.filterIcon1,
+                        width: 30,
+                        height: 30,
+                      ),
                     ),
                   ),
                 )

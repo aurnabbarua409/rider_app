@@ -21,6 +21,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -99,7 +100,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const SpaceWidget(
                     spaceHeight: 10,
                   ),
-                  const Divider(),
+                  const Divider(
+                    color: AppColors.greyLight,
+                  ),
                   const SpaceWidget(
                     spaceHeight: 10,
                   ),

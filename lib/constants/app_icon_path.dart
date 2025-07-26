@@ -49,4 +49,12 @@ class AppIconPath {
   static const String calenderIcon = "assets/icons/calendar_icon.svg";
   static const String editIcon = "assets/icons/edit_icon.svg";
   static const String infoIcon = "assets/icons/info_icon.svg";
+
+  // Order history
+  static const String packageIcon = "assets/icons/package_icon.svg";
+  static const String filterIcon1 = "assets/icons/filter1_icon.svg";
+
+  // Order details
+  static const String mastercardIcon = "assets/icons/mastercard_icon.svg";
+  static const String deleteIcon1 = "assets/icons/delete1_icon.svg";
 }

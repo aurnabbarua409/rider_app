@@ -20,13 +20,15 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
       appBar: const AppbarWidget(
+        backgroundColor: AppColors.thirdBrandColor,
         title: Text(""),
       ),
       body: GetBuilder(
         init: ForgetPasswordController(),
         builder: (controller) => Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -44,6 +46,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                 fontColor: AppColors.contentSecondaryLight,
                 textAlignment: TextAlign.left,
                 fontSize: 16,
+                softwrap: true,
               ),
               const SpaceWidget(
                 spaceHeight: 30,

@@ -7,10 +7,10 @@ import 'package:trackdays_planner/screens/cart_screen/checkout_screen/controller
 import 'package:trackdays_planner/utils/app_size.dart';
 import 'package:trackdays_planner/widgets/appbar_widget/appbar_widget.dart';
 import 'package:trackdays_planner/widgets/button_widget/button_widget.dart';
+import 'package:trackdays_planner/widgets/cart_item_widget/cart_item_widget.dart';
 import 'package:trackdays_planner/widgets/date_badge_widget/date_badge_widget.dart';
 import 'package:trackdays_planner/widgets/icon_button_widget/icon_button_widget.dart';
 import 'package:trackdays_planner/widgets/icon_widget/icon_widget.dart';
-import 'package:trackdays_planner/widgets/image_widget/image_widget.dart';
 import 'package:trackdays_planner/widgets/space_widget/space_widget.dart';
 import 'package:trackdays_planner/widgets/text_field_widget/text_field_widget.dart';
 import 'package:trackdays_planner/widgets/text_widget/text_widgets.dart';
@@ -26,7 +26,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.thirdBrandColor,
       appBar: const AppbarWidget(
+        backgroundColor: AppColors.thirdBrandColor,
         title: TextWidget(
           text: AppStrings.checkout,
           fontColor: AppColors.contentPrimaryLight,
@@ -69,42 +71,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               final item = controller.cardItem[index];
                               return Row(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ImageWidget(
-                                          height: 100,
-                                          width: 100,
-                                          imagePath: item.imageUrl),
-                                      const SpaceWidget(
-                                        spaceHeight: 10,
-                                      ),
-                                      ImageWidget(
-                                          height: 10,
-                                          width: 100,
-                                          imagePath: item.brandImageUrl),
-                                      const SpaceWidget(
-                                        spaceHeight: 8,
-                                      ),
-                                      TextWidget(
-                                        text: item.name,
-                                        fontColor:
-                                            AppColors.contentPrimaryLight,
-                                        textAlignment: TextAlign.left,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SpaceWidget(
-                                        spaceHeight: 4,
-                                      ),
-                                      TextWidget(
-                                        text: item.price.toString(),
-                                        fontSize: 18,
-                                        fontColor:
-                                            AppColors.contentPrimaryLight,
-                                      ),
-                                    ],
-                                  ),
+                                  CartItemWidget(
+                                      contentImageUrl: item.imageUrl,
+                                      brandImageUrl: item.brandImageUrl,
+                                      quantity: item.quantity,
+                                      price: item.price,
+                                      description: item.description,
+                                      name: item.name),
                                   const SpaceWidget(
                                     spaceWidth: 20,
                                   )

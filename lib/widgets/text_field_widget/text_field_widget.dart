@@ -15,6 +15,7 @@ class TextFieldWidget extends StatefulWidget {
   final VoidCallback? onTapSuffix;
   final bool? read;
   final Color? iconColor;
+  final String? hintText;
 
   const TextFieldWidget(
       {super.key,
@@ -26,7 +27,8 @@ class TextFieldWidget extends StatefulWidget {
       this.read = false,
       this.maxLines = 1, // Default value is 1
       this.onTapSuffix,
-      this.iconColor});
+      this.iconColor,
+      this.hintText});
 
   @override
   State<TextFieldWidget> createState() => _TextFieldWidgetState();
@@ -62,6 +64,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
         ),
         decoration: InputDecoration(
           alignLabelWithHint: true,
+          hintText: widget.hintText,
           fillColor: AppColors.white,
           labelText: widget.labelText,
           labelStyle: TextStyle(
@@ -93,8 +96,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                       padding: const EdgeInsets.all(13),
                       child: SvgPicture.asset(
                         widget.suffixIcon!,
-                        color:
-                            widget.iconColor ?? AppColors.contentPrimaryLight,
+                        color: widget.iconColor,
                         height: ResponsiveUtils.width(18),
                         width: ResponsiveUtils.width(18),
                       ),

@@ -4,6 +4,7 @@ import 'package:trackdays_planner/screens/all_events_event_details_screen/all_ev
 import 'package:trackdays_planner/screens/auth_screens/forget_password_screen/forget_password_screen.dart';
 import 'package:trackdays_planner/screens/auth_screens/set_new_password_screen/set_new_password_screen.dart';
 import 'package:trackdays_planner/screens/cart_screen/checkout_screen/checkout_screen.dart';
+import 'package:trackdays_planner/screens/order_details_screen/order_details_screen.dart';
 import 'package:trackdays_planner/screens/profile_screen/edit_profile_screen/edit_profile_screen.dart';
 import 'package:trackdays_planner/screens/profile_screen/order_history_screen/order_history_screen.dart';
 
@@ -122,6 +123,11 @@ class RouteManager {
       GetPage(
         name: AppRoutes.orderHistoryScreen,
         page: () => OrderHistoryScreen(),
+        // binding: GeneralBindings(),
+      ),
+      GetPage(
+        name: AppRoutes.orderDetailsScreen,
+        page: () => OrderDetailsScreen(),
         // binding: GeneralBindings(),
       ),
     ];
