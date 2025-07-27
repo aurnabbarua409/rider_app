@@ -19,24 +19,23 @@ class TextWidget extends StatelessWidget {
   final Color? decorationColor;
   final bool? softwrap;
 
-  const TextWidget({
-    super.key,
-    required this.text,
-    this.fontWeight = FontWeight.w400,
-    this.fontSize = 14,
-    this.fontStyle = FontStyle.normal,
-    this.fontColor = Colors.transparent,
-    this.overflow,
-    this.maxLines,
-    this.textAlignment = TextAlign.center,
-    this.fontFamily,
-    this.underline = false,
-    this.underlineColor,
-    this.underlineWidth = 1.0,
-    this.decoration,
-    this.decorationColor,
-    this.softwrap = false
-  });
+  const TextWidget(
+      {super.key,
+      required this.text,
+      this.fontWeight = FontWeight.w400,
+      this.fontSize = 14,
+      this.fontStyle = FontStyle.normal,
+      this.fontColor = Colors.transparent,
+      this.overflow,
+      this.maxLines,
+      this.textAlignment = TextAlign.center,
+      this.fontFamily,
+      this.underline = false,
+      this.underlineColor,
+      this.underlineWidth = 1.0,
+      this.decoration,
+      this.decorationColor,
+      this.softwrap = true});
 
   @override
   Widget build(BuildContext context) {

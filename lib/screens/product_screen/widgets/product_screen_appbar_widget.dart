@@ -44,7 +44,9 @@ class ProductScreenAppBarWidget extends StatelessWidget {
             children: [
               IconButton(
                 tooltip: "Notifications",
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.notificationsScreen);
+                },
                 icon: Badge(
                   isLabelVisible: true,
                   label: Text(notificationLabel),

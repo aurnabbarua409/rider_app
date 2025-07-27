@@ -92,13 +92,16 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                         ),
                       ),
                     )
-                  : Padding(
-                      padding: const EdgeInsets.all(13),
-                      child: SvgPicture.asset(
-                        widget.suffixIcon!,
-                        color: widget.iconColor,
-                        height: ResponsiveUtils.width(18),
-                        width: ResponsiveUtils.width(18),
+                  : GestureDetector(
+                      onTap: widget.onTapSuffix,
+                      child: Padding(
+                        padding: const EdgeInsets.all(13),
+                        child: SvgPicture.asset(
+                          widget.suffixIcon!,
+                          color: widget.iconColor,
+                          height: ResponsiveUtils.width(18),
+                          width: ResponsiveUtils.width(18),
+                        ),
                       ),
                     )
               : null,

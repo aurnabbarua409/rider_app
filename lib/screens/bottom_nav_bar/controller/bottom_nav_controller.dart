@@ -13,7 +13,7 @@ class BottomNavController extends GetxController {
     HomeScreen(),
     ProductScreen(),
     EventsScreen(),
-    ForgetPasswordScreen(),
+    ForgetPasswordScreen(), //Replace it
     ProfileScreen()
   ];
 

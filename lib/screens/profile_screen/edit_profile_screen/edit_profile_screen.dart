@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:trackdays_planner/constants/app_colors.dart';
 import 'package:trackdays_planner/constants/app_icon_path.dart';
@@ -8,6 +11,7 @@ import 'package:trackdays_planner/screens/profile_screen/edit_profile_screen/con
 import 'package:trackdays_planner/widgets/appbar_widget/appbar_widget.dart';
 import 'package:trackdays_planner/widgets/button_widget/button_widget.dart';
 import 'package:trackdays_planner/widgets/dropdown_button_form_field_widget/dropdown_button_form_field_widget.dart';
+import 'package:trackdays_planner/widgets/icon_button_widget/icon_button_widget.dart';
 import 'package:trackdays_planner/widgets/icon_widget/icon_widget.dart';
 import 'package:trackdays_planner/widgets/space_widget/space_widget.dart';
 import 'package:trackdays_planner/widgets/text_field_widget/text_field_widget.dart';
@@ -42,16 +46,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Stack(
-                        alignment: AlignmentDirectional.bottomEnd,
-                        children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage(AppImagePath.person),
-                            radius: 60,
-                          ),
-                          IconWidget(
-                              height: 35, width: 35, icon: AppIconPath.editIcon)
-                        ]),
+                    Stack(alignment: AlignmentDirectional.bottomEnd, children: [
+                      Obx(() {
+                        final image = controller.pickedImage.value;
+                        return CircleAvatar(
+                          backgroundImage: image != null
+                              ? FileImage(File(image.path))
+                              : const AssetImage(AppImagePath.person),
+                          radius: 60,
+                        );
+                      }),
+                      IconButtonWidget(
+                        icon: AppIconPath.editIcon,
+                        size: 35,
+                        onTap: () {
+                          controller.pickImage(context);
+                        },
+                        // child: IconWidget(
+                        //     height: 35, width: 35, icon: AppIconPath.editIcon),
+                      )
+                    ]),
                     const SpaceWidget(
                       spaceHeight: 20,
                     ),
@@ -112,6 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       labelText: AppStrings.dateOfBirth,
                       suffixIcon: AppIconPath.calenderIcon,
                       iconColor: AppColors.mainBrandColor,
+                      onTapSuffix: controller.pickDate,
                     ),
                     const SpaceWidget(
                       spaceHeight: 10,

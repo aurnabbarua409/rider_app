@@ -30,7 +30,9 @@ class ProfileAppBarWidget extends StatelessWidget {
             children: [
               IconButton(
                 tooltip: "Notifications",
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.notificationsScreen);
+                },
                 icon: const Badge(
                   isLabelVisible: true,
                   label: Text("3"),
