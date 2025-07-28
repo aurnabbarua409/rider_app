@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trackdays_planner/screens/events_screen/widgets/browse_all_events_widget.dart';
+import 'package:trackdays_planner/screens/events_screen/widgets/event_screen_appbar_widget.dart';
 import 'package:trackdays_planner/screens/events_screen/widgets/gearup_for_this_event_widget.dart';
 import 'package:trackdays_planner/screens/events_screen/widgets/your_racing_timeline_widget.dart';
 import 'package:universal_stepper/universal_stepper.dart';
@@ -112,36 +113,13 @@ class _EventsScreenState extends State<EventsScreen>
       backgroundColor: AppColors.thirdBrandColor,
       body: Column(
         children: [
-          ProductScreenAppBarWidget(
+          EventScreenAppbarWidget(
             searchController: searchController,
             notificationLabel: '3',
             cartLabel: '1',
+            tabController: _tabController,
           ),
-          const SpaceWidget(spaceHeight: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Row(
-              children: [
-                TabButtonWidget(
-                  text: AppStrings.allEvents.tr,
-                  isSelected: _tabController.index == 0,
-                  onTap: () {
-                    _tabController.animateTo(0);
-                    setState(() {});
-                  },
-                ),
-                const SpaceWidget(spaceWidth: 12),
-                TabButtonWidget(
-                  text: AppStrings.purchasedEvents.tr,
-                  isSelected: _tabController.index == 1,
-                  onTap: () {
-                    _tabController.animateTo(1);
-                    setState(() {});
-                  },
-                ),
-              ],
-            ),
-          ),
+          
           const SpaceWidget(spaceHeight: 24),
           Expanded(
             child: TabBarView(

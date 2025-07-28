@@ -145,7 +145,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         upcomingImages.length,
                         (index) => Padding(
                           padding: EdgeInsets.only(
-                            left: index == 0 ? 24 : 0,
+                            left: 0,
                             right: index == 2 ? 24 : 16,
                           ),
                           child: UpcomingTrackDaysWidget(
@@ -191,7 +191,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                         gearUpImages.length,
                         (index) => Padding(
                           padding: EdgeInsets.only(
-                            left: index == 0 ? 24 : 0,
+                            left: 0,
                             right: index == 2 ? 24 : 16,
                           ),
                           child: GearUpForTheTrackWidget(
